@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HOLOcomm - The World's First Holographic AI Checkout System. Voice-activated hologram that takes orders, answers questions, and processes payments.">
+    <title>HOLOcomm - Holographic AI Checkout System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #000428 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0,150,255,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { transform: translate(-100px, -100px); }
+            100% { transform: translate(100px, 100px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 40px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+            line-height: 1.2;
+            text-shadow: 0 0 30px rgba(0,150,255,0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #b8b8b8;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0096ff 0%, #0066cc 100%);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(0,150,255,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0,150,255,0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #0096ff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0,150,255,0.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-dark {
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .section-darker {
+            background: #000;
+            color: #fff;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .section-intro {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            color: #b8b8b8;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,150,255,0.1);
+            border: 1px solid rgba(0,150,255,0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 10px 5px;
+            font-size: 0.95rem;
+        }
+
+        .status-badge::before {
+            content: '✓';
+            color: #0096ff;
+            font-weight: bold;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0,150,255,0.5);
+            box-shadow: 0 10px 40px rgba(0,150,255,0.2);
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #0096ff;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: #ccc;
+        }
+
+        .card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #0096ff;
+            font-weight: bold;
+        }
+
+        /* Founder Cards */
+        .founder-card {
+            text-align: center;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 40px 30px;
+        }
+
+        .founder-card h3 {
+            font-size: 1.6rem;
+            margin: 20px 0 10px;
+            color: #fff;
+        }
+
+        .founder-card .role {
+            color: #0096ff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .founder-card p {
+            color: #b8b8b8;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .linkedin-btn {
+            display: inline-block;
+            background: #0077b5;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .linkedin-btn:hover {
+            background: #005885;
+            transform: scale(1.05);
+        }
+
+        /* Roadmap */
+        .roadmap-item {
+            padding: 20px;
+            border-left: 3px solid #0096ff;
+            margin-bottom: 20px;
+            background: rgba(0,150,255,0.05);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .roadmap-item h4 {
+            color: #0096ff;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: linear-gradient(135deg, #1a0033 0%, #000428 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 40px auto 0;
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+	.prototype-media { display: flex; flex-direction: column; align-items: center; gap: 35px; padding: 40px 0; }
+		@media (max-width:600px){ .prototype-media img, .prototype-media video { max-width:95vw; } }
+
+        /* Tally iframe styling */
+        .tally-iframe {
+            width: 100%;
+            min-height: 500px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #666;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        footer p {
+            margin: 8px 0;
+        }
+
+        footer a {
+            color: #0096ff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The World's First Holographic<br>AI Checkout System</h1>
+            <p>A voice-activated hologram that takes orders, answers questions, and processes payments — no screen, no touch, no staff required.</p>
+            <div class="cta-buttons">
+                <a href="#waitlist" class="btn btn-primary">Join Early Access</a>
+                <a href="mailto:r.chodvadiya@yahoo.com?subject=Investor%20Inquiry" class="btn btn-secondary">Investor Inquiry</a>
+            </div>
+        </div>
+    </section>
+
+	<!-- Prototype Preview Section -->
+<section class="section-dark">
+  <div class="container prototype-media">
+    <div>
+      <img src="protophoto.png" alt="HOLOcomm prototype device" style="max-width:370px; border-radius:16px; box-shadow:0 4px 30px #0096ff33;">
+      <div class="prototype-caption" style="color:#84e4ff; font-style:italic; margin-top:4px; margin-bottom:8px; text-align:center;">
+        Prototype rendering: 3D holographic AI checkout system in action
+      </div>
+    </div>
+    <div>
+      <video controls poster="protophoto.png" style="max-width:420px; border-radius:20px; box-shadow: 0 2px 15px #0096ff19;">
+        <source src="protovid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="prototype-caption" style="color:#84e4ff; font-style:italic; margin-top:4px; text-align:center;">
+        Walkaround demo: HOLOcomm prototype concept video
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Intro Section -->
+    <section class="section-dark">
+        <div class="container">
+            <h2 class="section-title">Introducing HOLOcomm</h2>
+            <p class="section-intro">
+                HOLOcomm is redefining how customers order and pay inside retail and food-service stores. 
+                We combine holographic display technology, AI voice interaction, and real-time payment processing 
+                into a single device that replaces traditional touchscreen kiosks and cashier labor.
+            </p>
+            <div style="text-align: center;">
+                <div class="status-badge">Currently in prototype development</div>
+                <div class="status-badge">Pilot units launching in 2026</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section-darker">
+        <div class="container">
+            <h2 class="section-title">Why This Needs to Exist</h2>
+            <p class="section-intro">Today's checkout systems are outdated and expensive</p>
+            <div class="grid grid-3">
+                <div class="card">
+                    <h3>Slow & Outdated</h3>
+                    <p>Physical touchscreens require constant cleaning and maintenance, slowing down operations</p>
+                </div>
+                <div class="card">
+                    <h3>Labor Dependent</h3>
+                    <p>Staff shortages create bottlenecks in a challenging hiring environment</p>
+                </div>
+                <div class="card">
+                    <h3>Poor Experience</h3>
+                    <p>Unable to attract or engage customers visually with traditional screens</p>
+                </div>
+                <div class="card">
+                    <h3>High Costs</h3>
+                    <p>$5k+ upfront for kiosk hardware plus ongoing maintenance expenses</p>
+                </div>
+                <div class="card">
+                    <h3>Not AI-Ready</h3>
+                    <p>Legacy systems can't leverage voice automation or conversational AI</p>
+                </div>
+                <div class="card">
+                    <h3>Limited Scale</h3>
+                    <p>Difficult to deploy rapidly or adapt to changing business needs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section-dark">
+        <div class="container">
+            <h2 class="section-title">What HOLOcomm Delivers</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3>3D Hologram Interface</h3>
+                    <p>Replace touchscreen hardware with stunning 3D holographic displays that capture attention</p>
+                </div>
+                <div class="card">
+                    <h3>Voice-Controlled Ordering</h3>
+                    <p>No touching, no scrolling — customers simply speak their orders naturally</p>
+                </div>
+                <div class="card">
+                    <h3>Built-in Payments</h3>
+                    <p>Process tap, card, and mobile wallet payments directly at the device</p>
+                </div>
+                <div class="card">
+                    <h3>24/7 Operation</h3>
+                    <p>Runs continuously, reducing labor costs and increasing throughput</p>
+                </div>
+                <div class="card">
+                    <h3>Small Footprint</h3>
+                    <p>Modular design with minimal space requirements, no screen cleaning needed</p>
+                </div>
+                <div class="card">
+                    <h3>Subscription Model</h3>
+                    <p>No $5k upfront cost — affordable monthly pricing with hardware included</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Now Section -->
+    <section class="section-darker">
+        <div class="container">
+            <h2 class="section-title">Why Now</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <ul>
+                        <li>Retail + QSR labor shortages at historical highs</li>
+                        <li>Voice AI adoption rising (Siri, Alexa, Google)</li>
+                        <li>Consumers prefer contactless + touchless interaction</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <ul>
+                        <li>Hologram hardware costs have dropped to commercial viability</li>
+                        <li>Businesses need automation that enhances customer experience</li>
+                        <li>Market ready for next retail interface shift</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 40px; font-size: 1.3rem; color: #0096ff; font-weight: 600;">
+                We are not building for hype. We are building for the next retail interface shift.
+            </p>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="section-dark">
+        <div class="container">
+            <h2 class="section-title">Product Build Status & Roadmap</h2>
+            <div style="max-width: 800px; margin: 40px auto;">
+                <div class="roadmap-item">
+                    <h4>Phase 1</h4>
+                    <p>Hardware BOM + embedded system architecture</p>
+                </div>
+                <div class="roadmap-item">
+                    <h4>Phase 2</h4>
+                    <p>Prototype: hologram + voice command + AI response</p>
+                </div>
+                <div class="roadmap-item">
+                    <h4>Phase 3</h4>
+                    <p>POS & payments integration + merchant dashboard</p>
+                </div>
+                <div class="roadmap-item">
+                    <h4>Phase 4</h4>
+                    <p>Pilot deployment with 1–3 early partner stores</p>
+                </div>
+                <div class="roadmap-item">
+                    <h4>Phase 5</h4>
+                    <p>Limited hardware production + SaaS rollout</p>
+                </div>
+            </div>
+            <p style="text-align: center; color: #0096ff; font-weight: 600; margin-top: 40px;">
+                Real demo video coming soon
+            </p>
+        </div>
+    </section>
+
+    <!-- Business Model Section -->
+    <section class="section-darker">
+        <div class="container">
+            <h2 class="section-title">Business Model</h2>
+            <p class="section-intro">Subscription-based pricing with no upfront costs</p>
+            <div class="grid grid-3">
+                <div class="card">
+                    <h3>Hardware Lease</h3>
+                    <p style="font-size: 2rem; color: #0096ff; font-weight: bold; margin: 20px 0;">$199–$249</p>
+                    <p>per month</p>
+                </div>
+                <div class="card">
+                    <h3>AI Software & Updates</h3>
+                    <p style="font-size: 2rem; color: #0096ff; font-weight: bold; margin: 20px 0;">$79</p>
+                    <p>per month</p>
+                </div>
+                <div class="card">
+                    <h3>Optional</h3>
+                    <p style="font-size: 1.2rem; margin: 30px 0;">Transaction fee share on payments</p>
+                </div>
+            </div>
+            <div style="max-width: 600px; margin: 60px auto 0; text-align: center;">
+                <div class="card">
+                    <ul style="text-align: left;">
+                        <li>No upfront purchase required</li>
+                        <li>Hardware + software + service in one bill</li>
+                        <li>High retention + low switching cost for merchants</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founders Section -->
+    <section class="section-dark">
+        <div class="container">
+            <h2 class="section-title">The Founders</h2>
+            <div class="grid grid-2">
+                <div class="founder-card">
+                    <h3>Rujven Chodvadiya</h3>
+                    <p class="role">Founder & CEO</p>
+                    <p>
+                        Business Development @ Global Payments (Fintech + POS), expertise in merchant onboarding, 
+                        B2B hardware sales, payment systems. Leads strategy, sales, investor relations, partnerships.
+                    </p>
+                    <a href="https://www.linkedin.com/in/rujven-chodvadiya-4227b7187/" class="linkedin-btn" target="_blank">
+                        View LinkedIn Profile
+                    </a>
+                </div>
+                <div class="founder-card">
+                    <h3>Jenish Savaliya</h3>
+                    <p class="role">Co-Founder & CTO</p>
+                    <p>
+                        AI/ML & Embedded Systems Engineer (Japan). Built underwater imaging AI, RC object-detection robot, 
+                        facial recognition on Raspberry Pi, IoT automation devices. Leads prototype build, hardware-AI integration, engineering.
+                    </p>
+                    <a href="https://www.linkedin.com/in/jenishsavaliya/details/projects/" class="linkedin-btn" target="_blank">
+                        View LinkedIn Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Form Section -->
+    <section id="waitlist" class="form-section">
+        <div class="container">
+            <h2 class="section-title">Join Early Access</h2>
+            <p class="section-intro">
+                Want early access or pilot deployment?<br>
+                Join the waitlist — we'll notify you when our prototype demo is live.
+            </p>
+            <div class="form-container">
+                <!-- Tally Form Embed -->
+                <iframe 
+                    class="tally-iframe"
+                    src="https://tally.so/embed/xXxlzd?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+                    width="100%" 
+                    height="500" 
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    title="HOLOcomm Early Access">
+                </iframe>
+                <script>
+                    var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+                </script>
+                <p style="margin-top: 20px; font-size: 0.9rem; color: #999;">
+                    Or email us directly: <a href="mailto:r.chodvadiya@yahoo.com" style="color: #0096ff;">r.chodvadiya@yahoo.com</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p style="font-size: 1.2rem; color: #fff; margin-bottom: 15px;"><strong>HOLOcomm™</strong></p>
+            <p>Holographic Commerce Systems</p>
+            <p>Incorporated Federally in Canada</p>
+            <p>Patent filing in progress</p>
+            <p style="margin-top: 15px;"><a href="mailto:r.chodvadiya@yahoo.com">r.chodvadiya@yahoo.com</a></p>
+            <p style="margin-top: 20px;">© 2025 HOLOcomm. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
